@@ -9,6 +9,11 @@ $card-bg-2: #dbe2e6;
 $card-bg-3: #c8d6e5;
 $divider-color: #dee2e6;
 
+// Layout fix for fixed-top navbar
+body {
+  padding-top: 70px; // ajusta a la altura real de tu navbar
+}
+
 // Navbar
 .navbar {
   &.custom-font {
