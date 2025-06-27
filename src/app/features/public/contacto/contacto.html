@@ -1,0 +1,27 @@
+<section class="contacto">
+  <div class="contenedor">
+    <h2>Contáctanos</h2>
+    <p class="intro">¿Tienes alguna consulta? Completa el formulario y te responderemos a la brevedad.</p>
+
+    <form class="formulario">
+      <div class="grupo-input">
+        <label for="nombre">Nombre completo</label>
+        <input id="nombre" formControlName="nombre" type="text"/>
+      </div>
+
+      <div class="grupo-input">
+        <label for="correo">Correo electrónico</label>
+        <input id="correo" formControlName="correo" type="email"/>
+      </div>
+
+      <div class="grupo-input">
+        <label for="mensaje">Mensaje</label>
+        <textarea id="mensaje" rows="5"></textarea>
+      </div>
+
+      <div class="centrado">
+        <button class="btn" type="submit">Enviar mensaje</button>
+      </div>
+    </form>
+  </div>
+</section>
