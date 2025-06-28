@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class Auth {
+export class AuthService {
   private URL = 'http://localhost:8080/api/v1/auth';
   private router = inject(Router);
   private http = inject(HttpClient);
