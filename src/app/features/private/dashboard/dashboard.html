@@ -9,38 +9,38 @@
         <div class="d-flex align-items-center gap-2 bg-light p-2 rounded mb-4">
             <span class="fs-4">👤</span>
             <div>
-                <div class="fw-semibold">{{ userName }}</div>
-                <div class="text-muted small">{{ roleTitle }}</div>
+                <div class="fw-semibold"></div>
+                <div class="text-muted small"></div>
             </div>
         </div>
 
         <ul class="nav flex-column mb-auto">
-            <ng-container *ngIf="!isAdmin">
-                <li class="nav-item" [class.active]="activeItem === 'rooms'" (click)="setActiveItem('rooms')">
+            <ng-container >
+                <li class="nav-item">
                     <a class="nav-link d-flex align-items-center gap-2" href="dashboard/#">
                         🚪 <span>Salones</span>
                     </a>
                 </li>
-                <li class="nav-item" [class.active]="activeItem === 'bookings'" (click)="setActiveItem('bookings')">
+                <li class="nav-item">
                     <a class="nav-link d-flex align-items-center gap-2" href="dashboard/#">
                         📅 <span>Mis Reservas</span>
                     </a>
                 </li>
             </ng-container>
 
-            <ng-container *ngIf="isAdmin">
-                <li class="nav-item" [class.active]="activeItem === 'manage'" (click)="setActiveItem('manage')">
+            <ng-container>
+                <li class="nav-item">
                     <a class="nav-link d-flex align-items-center gap-2" href="dashboard/#">
                         🛠️ <span>Administrar</span>
                     </a>
                 </li>
-                <li class="nav-item" [class.active]="activeItem === 'pricing'" (click)="setActiveItem('pricing')">
+                <li class="nav-item">
                     <a class="nav-link d-flex align-items-center gap-2" href="dashboard/#">
                         💰 <span>Precios</span>
                     </a>
                 </li>
-                <li class="nav-item" [class.active]="activeItem === 'all-bookings'"
-                    (click)="setActiveItem('all-bookings')">
+                <li class="nav-item"
+                    >
                     <a class="nav-link d-flex align-items-center gap-2" href="dashboard/#">
                         📋 <span>Reservas</span>
                     </a>
@@ -58,10 +58,9 @@
 
     <main class="flex-grow-1 p-4" style="margin-left: 280px;">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="h4">{{ welcomeMessage }}</h1>
             <div class="d-flex gap-2">
-                <button class="btn btn-outline-primary btn-sm" (click)="toggleRole()">
-                    Cambiar a {{ isAdmin ? 'Usuario' : 'Admin' }}
+                <button class="btn btn-outline-primary btn-sm">
+                    Cambiar a
                 </button>
                 <button class="btn btn-light position-relative">
                     🔔
@@ -75,8 +74,8 @@
         <div class="bg-white p-4 rounded shadow-sm">
             <h2 class="h5 mb-3">Bienvenido al sistema</h2>
             <p class="text-muted">
-                {{ isAdmin ? 'Panel de administración de salones y reservas.' : 'Reserva salones para tus eventos de
-                manera sencilla.' }}
+                'Panel de administración de salones y reservas.' : 'Reserva salones para tus eventos de
+                manera sencilla.'
             </p>
 
             <div class="row g-3">
@@ -94,7 +93,7 @@
                         <div class="small text-muted">Reservas</div>
                     </div>
                 </div>
-                <div class="col-6 col-md-4" *ngIf="isAdmin">
+                <div class="col-6 col-md-4" >
                     <div class="bg-light p-3 rounded text-center">
                         <div class="fs-3">👥</div>
                         <div class="fw-bold fs-5 text-primary">42</div>

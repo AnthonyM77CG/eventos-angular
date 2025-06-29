@@ -7,6 +7,7 @@ import { Contacto } from './features/public/contacto/contacto';
 import { Login } from './features/auth/pages/login/login';
 import { Register } from './features/auth/pages/register/register';
 import { Dashboard } from './features/private/dashboard/dashboard';
+import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
     { path: 'inicio', component: Inicio },
@@ -15,7 +16,7 @@ export const routes: Routes = [
     { path: 'contacto', component: Contacto },
     { path: 'login', component: Login },
     { path: 'register', component: Register },
-    { path: 'dashboard', component: Dashboard },
+    { path: 'dashboard', component: Dashboard, canActivate: [authGuard] },
     { path: '', component: Inicio, pathMatch:"full"},
     { path: '**', component: NoEncontrado }
 ];
