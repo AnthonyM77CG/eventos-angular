@@ -1,0 +1,47 @@
+import { inject, Injectable } from '@angular/core';
+import { Token } from '../models/token';
+import { Credencial } from '../models/credencial';
+import { BehaviorSubject, map, Observable, tap } from 'rxjs';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+  private URL = 'http://localhost:8080/api/v1/auth';
+  private router = inject(Router);
+  private http = inject(HttpClient);
+
+  private isAuth = new BehaviorSubject<boolean>(this.hasToken());
+  public isAuth$ = this.isAuth.asObservable();
+
+  iniciarSesion(credenciales: Credencial): Observable<Token> {
+    return this.http.post<Token>(`${this.URL}/authenticate`, credenciales).pipe(
+      tap(resp => {
+        this.almacenarTokens(resp)
+        this.isAuth.next(true);
+        this.router.navigate(['/dashboard'])
+      }));
+  }
+
+  cerrarSesion() {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token')
+    this.isAuth.next(false);
+    this.router.navigate(['/login'])
+  }
+
+  private almacenarTokens(tokens: Token) {
+    localStorage.setItem('access_token', tokens.access_token);
+    localStorage.setItem('refresh_token', tokens.refresh_token);
+  }
+
+  getTokenAccess(): String | null {
+    return localStorage.getItem('access_token')
+  }
+
+  private hasToken(): boolean {
+    return !!localStorage.getItem('access_token')
+  }
+}
