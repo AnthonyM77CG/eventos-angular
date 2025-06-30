@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Token } from '../models/token';
 import { Credencial } from '../models/credencial';
-import { BehaviorSubject, map, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 

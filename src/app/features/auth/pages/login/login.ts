@@ -53,7 +53,7 @@ export class Login {
 
     this.authService.iniciarSesion(this.credencial).subscribe({
       next: (res) => {
-        console.log("Tokens:", res.access_token, res.refresh_token);        
+        console.log("Token de acceso:", res.access_token, "Token de refresco:", res.refresh_token);        
       },
       error: (e) => {
         this.errorMsg.set('Credenciales erroneas');
