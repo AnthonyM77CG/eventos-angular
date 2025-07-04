@@ -21,7 +21,7 @@ export class AuthService {
       tap(resp => {
         this.almacenarTokens(resp)
         this.isAuth.next(true);
-        this.router.navigate(['/dashboard'])
+        this.router.navigate(['/admin'])
       }));
   }
 
