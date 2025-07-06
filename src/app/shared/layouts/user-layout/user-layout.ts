@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-
 @Component({
-  selector: 'app-root',
+  selector: 'app-user-layout',
   imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.scss'
+  templateUrl: './user-layout.html',
+  styleUrl: './user-layout.scss'
 })
-export class App {
-  protected title = 'VirellaFront';
+export class UserLayout {
+
 }

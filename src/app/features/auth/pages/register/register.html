@@ -8,50 +8,55 @@
 
         <h2 class="auth-title">Crear Cuenta</h2>
 
-        <form class="auth-form" [formGroup]="formRegister">
+        <form class="auth-form" [formGroup]="formRegister" (ngSubmit)="registerFn()" novalidate>
             <div class="form-group">
                 <label for="name">Nombre completo</label>
-                <input type="text" id="name" class="form-input" placeholder="Tu nombre" formControlName="usuario"/>
-                @if(usuario?.invalid && (usuario?.dirty || usuario?.touched)){
-                    @if (usuario?.hasError('required')) {
-                        <span>- El campo es obligatorio*</span>
-                    }
-                    @if(usuario?.hasError('containNumbers')){
-                        <span>- El campo no acepta numeros*</span>
-                        }
-                    @if(usuario?.hasError('forbiddenSpecialChars')){
-                        <span>- El campo no acepta caracteres especiales*</span>
-                    }
+                <input type="text" id="name" class="form-input" placeholder="Tu nombre" formControlName="username" />
+                @if(username?.invalid && (username?.dirty || username?.touched)){
+                @if (username?.hasError('required')) {
+                <span>- El campo es obligatorio*</span>
                 }
-                
+                @if(username?.hasError('containNumbers')){
+                <span>- El campo no acepta numeros*</span>
+                }
+                @if(username?.hasError('forbiddenSpecialChars')){
+                <span>- El campo no acepta caracteres especiales*</span>
+                }
+                }
+
             </div>
 
             <div class="form-group">
                 <label for="email">Correo electrónico</label>
-                <input type="email" id="email" class="form-input" placeholder="tu@email.com" formControlName="correo"/>
-                @if (correo?.invalid && (correo?.dirty || correo?.touched)) {
-                    @if (correo?.hasError('required')) {
-                        <span>- El campo es obligatorio*</span>
-                    }
-                    @if (correo?.hasError('email')) {
-                        <span>- El campo no tiene el formato correcto*</span>
-                    }
+                <input type="email" id="email" class="form-input" placeholder="tu@email.com" formControlName="email" />
+                @if (email?.invalid && (email?.dirty || email?.touched)) {
+                @if (email?.hasError('required')) {
+                <span>- El campo es obligatorio*</span>
+                }
+                @if (email?.hasError('email')) {
+                <span>- El campo no tiene el formato correcto*</span>
+                }
                 }
             </div>
 
             <div class="form-group">
                 <label for="password">Contraseña</label>
-                <input type="password" id="password" class="form-input" placeholder="••••••••" formControlName="contrasenia"/>
-                @if (contrasenia?.invalid && (contrasenia?.dirty || contrasenia?.touched)) {
-                    @if (contrasenia?.hasError('required')) {
-                        <span>- El campo es obligatorio*</span>
-                    }
-                    @if (contrasenia?.hasError('minlength')) {
-                        <span>- El campo debe tener por lo menos 6 caracteres*</span>
-                    }
+                <input type="password" id="password" class="form-input" placeholder="••••••••"
+                    formControlName="password" />
+                @if (password?.invalid && (password?.dirty || password?.touched)) {
+                @if (password?.hasError('required')) {
+                <span>- El campo es obligatorio*</span>
+                }
+                @if (password?.hasError('minlength')) {
+                <span>- El campo debe tener por lo menos 6 caracteres*</span>
+                }
                 }
             </div>
-
+            <div>
+                @if(errorMsg()){
+                <span>{{errorMsg()}}</span>
+                }
+            </div>
             <button type="submit" class="auth-button" [disabled]="formRegister.invalid">Registrarse</button>
         </form>
 
@@ -59,4 +64,4 @@
             <a class="auth-link" routerLink="/login">¿Ya tienes cuenta? Inicia sesión</a>
         </div>
     </div>
-</div> 
+</div>
