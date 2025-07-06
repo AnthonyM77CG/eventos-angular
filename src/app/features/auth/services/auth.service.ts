@@ -4,6 +4,7 @@ import { Credencial } from '../models/credencial';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Usuario } from '../models/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,14 @@ export class AuthService {
         this.isAuth.next(true);
         this.router.navigate(['/admin'])
       }));
+  }
+
+  registrarUsuario(usuario: Usuario): Observable<any> { // Puedes ajustar el tipo de retorno si el backend devuelve algo específico
+    return this.http.post(`${this.URL}/register`, usuario).pipe(
+      tap(() => {
+        this.router.navigate(['/login']);
+      })
+    );
   }
 
   cerrarSesion() {
