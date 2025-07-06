@@ -5,6 +5,8 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Usuario } from '../models/usuario';
+import { jwtDecode} from 'jwt-decode';
+import { DecodedRole } from '../models/decoded-role';
 
 @Injectable({
   providedIn: 'root'
@@ -22,11 +24,22 @@ export class AuthService {
       tap(resp => {
         this.almacenarTokens(resp)
         this.isAuth.next(true);
-        this.router.navigate(['/admin'])
+        const decoded = jwtDecode<DecodedRole>(resp.access_token);
+        if (decoded.role) {
+          localStorage.setItem('user_role', decoded.role);
+          this.redirectSegunRol(decoded.role);
+        }
       }));
   }
 
-  registrarUsuario(usuario: Usuario): Observable<any> { // Puedes ajustar el tipo de retorno si el backend devuelve algo específico
+  private redirectSegunRol(role: string) {
+    const route = role === 'ADMIN' ? '/admin' : 
+                 role === 'USER' ? '/user' : 
+                 '/inicio';
+    this.router.navigate([route]);
+  }
+
+  registrarUsuario(usuario: Usuario): Observable<any> {
     return this.http.post(`${this.URL}/register`, usuario).pipe(
       tap(() => {
         this.router.navigate(['/login']);
