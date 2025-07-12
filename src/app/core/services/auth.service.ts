@@ -1,12 +1,12 @@
 import { inject, Injectable } from '@angular/core';
-import { Token } from '../models/token';
-import { Credencial } from '../models/credencial';
+import { Token } from '../../features/auth/models/token';
+import { Credencial } from '../../features/auth/models/credencial';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Usuario } from '../models/usuario';
+import { Usuario } from '../../features/auth/models/usuario';
 import { jwtDecode} from 'jwt-decode';
-import { DecodedRole } from '../models/decoded-role';
+import { DecodedRole } from '../../features/auth/models/decoded-role';
 
 @Injectable({
   providedIn: 'root'
