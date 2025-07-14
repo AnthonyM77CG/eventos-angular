@@ -1,0 +1,44 @@
+<aside class="bg-white border-end p-3 d-flex flex-column position-fixed h-100" style="width: 280px;">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex align-items-center gap-2 fw-semibold fs-5">
+            <span>Virella Dashboard</span>
+        </div>
+    </div>
+
+    <div class="d-flex align-items-center gap-2 bg-light p-2 rounded mb-4">
+        <span class="fs-4">👤</span>
+        <div>
+            <div class="fw-semibold">{{username}}</div>
+            <div class="text-muted small">Administrador</div>
+        </div>
+    </div>
+
+    <ul class="nav flex-column mb-auto">
+        <li class="nav-item">
+            <a class="nav-link d-flex align-items-center gap-2" routerLink="dashboard">
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link d-flex align-items-center gap-2" routerLink="locales">
+                <span>Locales</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link d-flex align-items-center gap-2" routerLink="reservas">
+                <span>Reservas</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link d-flex align-items-center gap-2">
+                <span>Administrar</span>
+            </a>
+        </li>
+    </ul>
+
+    <div class="mt-auto">
+        <a class="btn btn-outline-danger w-100 d-flex align-items-center gap-2" (click)="cerrarSesion()">
+            <span>Cerrar Sesión</span>
+        </a>
+    </div>
+</aside>
