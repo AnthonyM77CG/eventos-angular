@@ -1,11 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { Dashboard } from '../pages/dashboard/dashboard';
+import { ReservasForm } from '../pages/reservas/reservas-form/reservas-form';
+import { ReservasList } from '../pages/reservas/reservas-list/reservas-list';
+import { ReservasInicio } from '../pages/reservas/reservas-inicio/reservas-inicio';
 
 const userRoutes: Routes = [
-  { path: 'dashboard', component: Dashboard },
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+  {
+    path: 'reservas', component: ReservasInicio,
+    children: [
+      { path: '', component: ReservasList },
+      { path: 'agregar', component: ReservasForm },
+    ]
+  },
+  { path: '', redirectTo: 'reservas', pathMatch: 'full' }
 ];
 
 
