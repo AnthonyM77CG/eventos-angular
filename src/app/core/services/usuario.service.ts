@@ -9,6 +9,10 @@ export class UsuarioService {
   private URL = 'http://localhost:8080/api/usuarios'
   private http = inject(HttpClient)
 
+  getUsuarios() {
+    return this.http.get<UsuarioI[]>(this.URL);
+  }
+
   getUsuarioById(id: number) {
     return this.http.get<UsuarioI>(`${this.URL}/${id}`)
   }
