@@ -3,7 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { RouterLink } from '@angular/router';
 import { Usuario } from '../../models/usuario';
 import { forbiddenNumbersValidator, forbiddenSpecialCharsValidator } from '../../../../core/validatores/Validador';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
