@@ -1,106 +1,54 @@
-<div class="d-flex min-vh-100">
-    <aside class="bg-white border-end p-3 d-flex flex-column position-fixed h-100" style="width: 280px;">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <div class="d-flex align-items-center gap-2 fw-semibold fs-5">
-                <span>Virella Dashboard</span>
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <div class="d-flex gap-2">
+        <button class="btn btn-light position-relative">
+            🔔
+            <span class="position-absolute top-0 start-100 translate-middle badge bg-danger rounded-pill">
+                3
+            </span>
+        </button>
+    </div>
+</div>
+
+<div class="bg-white p-4 rounded shadow-sm">
+    <h2 class="h5 mb-3">Bienvenido al sistema</h2>
+    <p class="text-muted">
+        Panel de administración de salones y reservas.
+    </p>
+
+    @if (loading()) {
+    <div class="text-center my-4">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Cargando...</span>
+        </div>
+        <p class="text-muted mt-2">Cargando métricas...</p>
+    </div>
+    } @else if (error()) {
+    <div class="alert alert-danger text-center my-4" role="alert">
+        {{ error() }}
+    </div>
+    } @else {
+    <div class="row g-3">
+        <div class="col-6 col-md-4">
+            <div class="bg-light p-3 rounded text-center">
+                <div class="fs-3">🚪</div>
+                <div class="fw-bold fs-5 text-primary">{{ totalSalones() }}</div>
+                <div class="small text-muted">Salones</div>
             </div>
         </div>
-
-        <div class="d-flex align-items-center gap-2 bg-light p-2 rounded mb-4">
-            <span class="fs-4">👤</span>
-            <div>
-                <div class="fw-semibold">Admin</div>
-                <div class="text-muted small">Admin</div>
+        <div class="col-6 col-md-4">
+            <div class="bg-light p-3 rounded text-center">
+                <div class="fs-3">📅</div>
+                <div class="fw-bold fs-5 text-primary">{{ totalReservas() }}</div>
+                <div class="small text-muted">Reservas</div>
             </div>
         </div>
-
-        <ul class="nav flex-column mb-auto">
-            <ng-container >
-                <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center gap-2">
-                        🚪 <span>Salones</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center gap-2">
-                        📅 <span>Mis Reservas</span>
-                    </a>
-                </li>
-            </ng-container>
-
-            <ng-container>
-                <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center gap-2" >
-                        🛠️ <span>Administrar</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link d-flex align-items-center gap-2">
-                        💰 <span>Precios</span>
-                    </a>
-                </li>
-                <li class="nav-item"
-                    >
-                    <a class="nav-link d-flex align-items-center gap-2">
-                        📋 <span>Reservas</span>
-                    </a>
-                </li>
-            </ng-container>
-        </ul>
-
-        <div class="mt-auto">
-            <a class="btn btn-outline-danger w-100 d-flex align-items-center gap-2">
-                🔴 <span>Cerrar Sesión</span>
-            </a>
-        </div>
-
-    </aside>
-
-    <main class="flex-grow-1 p-4" style="margin-left: 280px;">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <div class="d-flex gap-2">
-                <button class="btn btn-outline-primary btn-sm">
-                    Cambiar a
-                </button>
-                <button class="btn btn-light position-relative">
-                    🔔
-                    <span class="position-absolute top-0 start-100 translate-middle badge bg-danger rounded-pill">
-                        3
-                    </span>
-                </button>
+        <div class="col-6 col-md-4">
+            <div class="bg-light p-3 rounded text-center">
+                <div class="fs-3">👥</div>
+                <div class="fw-bold fs-5 text-primary">{{ totalUsuarios() }}</div>
+                <div class="small text-muted">Usuarios</div>
             </div>
         </div>
-
-        <div class="bg-white p-4 rounded shadow-sm">
-            <h2 class="h5 mb-3">Bienvenido al sistema</h2>
-            <p class="text-muted">
-                'Panel de administración de salones y reservas.' : 'Reserva salones para tus eventos de
-                manera sencilla.'
-            </p>
-
-            <div class="row g-3">
-                <div class="col-6 col-md-4">
-                    <div class="bg-light p-3 rounded text-center">
-                        <div class="fs-3">🚪</div>
-                        <div class="fw-bold fs-5 text-primary">15</div>
-                        <div class="small text-muted">Salones</div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-4">
-                    <div class="bg-light p-3 rounded text-center">
-                        <div class="fs-3">📅</div>
-                        <div class="fw-bold fs-5 text-primary">28</div>
-                        <div class="small text-muted">Reservas</div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-4" >
-                    <div class="bg-light p-3 rounded text-center">
-                        <div class="fs-3">👥</div>
-                        <div class="fw-bold fs-5 text-primary">42</div>
-                        <div class="small text-muted">Usuarios</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+    </div>
+    }
 </div>
