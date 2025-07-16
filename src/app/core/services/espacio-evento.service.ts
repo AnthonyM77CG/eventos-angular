@@ -18,7 +18,7 @@ export class EspacioEventoService {
   }
 
   createEspacioEvento(espacio: EspacioEventoI) {
-    return this.http.post<EspacioEventoI>(`${this.URL}/crear`, espacio);
+    return this.http.post<EspacioEventoI>(`${this.URL}/agregar`, espacio);
   }
 
   updateEspacioEvento(id: number, espacio: EspacioEventoI) {
