@@ -3,12 +3,10 @@ import { EspacioEventoService } from '../../../../../core/services/espacio-event
 import { Observable, tap } from 'rxjs';
 import { EspacioEventoI } from '../../../../../core/models/espacio-evento';
 import { AsyncPipe } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-espacio-evento',
-  standalone: true,
   imports: [AsyncPipe, FormsModule],
   templateUrl: './espacio-evento.html',
   styleUrls: ['./espacio-evento.scss']
