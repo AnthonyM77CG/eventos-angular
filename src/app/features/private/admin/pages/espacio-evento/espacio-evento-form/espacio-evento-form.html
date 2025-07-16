@@ -1,0 +1,70 @@
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>{{ isEditing() ? 'Editar Local' : 'Agregar Nuevo Local' }}</h2>
+        <a class="btn btn-secondary" routerLink="/admin/locales">Volver a Locales</a>
+    </div>
+
+    <div class="card p-4 shadow-sm">
+        <form [formGroup]="formEspacio" (ngSubmit)="submitForm()">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" id="nombre" class="form-control" formControlName="nombre" placeholder="Nombre del local">
+                    @if (nombre?.invalid && (nombre?.dirty || nombre?.touched)) {
+                    @if (nombre?.hasError('required')) {
+                    <span class="text-danger small">- El nombre es obligatorio*</span>
+                    }
+                    @if (nombre?.hasError('minlength')) {
+                    <span class="text-danger small">- El nombre debe tener al menos 3 caracteres*</span>
+                    }
+                    }
+                </div>
+                <div class="col-md-6">
+                    <label for="ubicacion" class="form-label">Ubicación</label>
+                    <input type="text" id="ubicacion" class="form-control" formControlName="ubicacion" placeholder="Dirección o zona">
+                    @if (ubicacion?.invalid && (ubicacion?.dirty || ubicacion?.touched)) {
+                    @if (ubicacion?.hasError('required')) {
+                    <span class="text-danger small">- La ubicación es obligatoria*</span>
+                    }
+                    @if (ubicacion?.hasError('minlength')) {
+                    <span class="text-danger small">- La ubicación debe tener al menos 3 caracteres*</span>
+                    }
+                    }
+                </div>
+                <div class="col-md-6">
+                    <label for="aforoMaximo" class="form-label">Aforo Máximo</label>
+                    <input type="number" id="aforoMaximo" class="form-control" formControlName="aforoMaximo" min="1" placeholder="Número máximo de personas">
+                    @if (aforoMaximo?.invalid && (aforoMaximo?.dirty || aforoMaximo?.touched)) {
+                    @if (aforoMaximo?.hasError('required')) {
+                    <span class="text-danger small">- El aforo máximo es obligatorio*</span>
+                    }
+                    @if (aforoMaximo?.hasError('min')) {
+                    <span class="text-danger small">- El aforo debe ser al menos 1*</span>
+                    }
+                    }
+                </div>
+                <div class="col-md-12">
+                    <label for="descripcion" class="form-label">Descripción</label>
+                    <textarea id="descripcion" class="form-control" formControlName="descripcion" rows="4" placeholder="Descripción detallada del local"></textarea>
+                    @if (descripcion?.invalid && (descripcion?.dirty || descripcion?.touched)) {
+                    @if (descripcion?.hasError('maxlength')) {
+                    <span class="text-danger small">- La descripción no puede exceder los 500 caracteres*</span>
+                    }
+                    }
+                </div>
+            </div>
+
+            @if(errorMsg()){
+            <div class="alert alert-danger mt-3" role="alert">
+                {{errorMsg()}}
+            </div>
+            }
+
+            <div class="d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-secondary" [disabled]="formEspacio.invalid">
+                    {{ isEditing() ? 'Actualizar Local' : 'Agregar Local' }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
