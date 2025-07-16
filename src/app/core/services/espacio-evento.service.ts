@@ -18,14 +18,14 @@ export class EspacioEventoService {
   }
 
   createEspacioEvento(espacio: EspacioEventoI) {
-    return this.http.post<EspacioEventoI>(this.URL, espacio);
+    return this.http.post<EspacioEventoI>(`${this.URL}/agregar`, espacio);
   }
 
   updateEspacioEvento(id: number, espacio: EspacioEventoI) {
     return this.http.put<EspacioEventoI>(`${this.URL}/actualizar/${id}`, espacio);
   }
 
-  deleteEspacioEvento(id: number){
+  deleteEspacioEvento(id: number) {
     return this.http.delete<EspacioEventoI>(`${this.URL}/eliminar/${id}`)
   }
 }

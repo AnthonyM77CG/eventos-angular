@@ -18,6 +18,6 @@ export class ReservaService {
   }
 
   createReserva(reserva: ReservaI) {
-    return this.http.post<ReservaI>(this.URL, reserva);
+    return this.http.post<ReservaI>(`${this.URL}/agregar`, reserva);
   }
 }
