@@ -8,5 +8,5 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './espacio-evento-inicio.scss'
 })
 export class EspacioEventoInicio {
-  
+
 }

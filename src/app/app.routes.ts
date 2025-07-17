@@ -24,7 +24,7 @@ export const routes: Routes = [
     },
 
     {
-        path: 'admin', 
+        path: 'admin',
         loadComponent: () => import('./shared/layouts/admin-layout/admin-layout').then(c => c.AdminLayout),
         canActivate: [authGuard],
         data: { role: 'ADMIN' },
@@ -37,14 +37,14 @@ export const routes: Routes = [
     },
 
     {
-        path: 'user', 
+        path: 'user',
         loadComponent: () => import('./shared/layouts/user-layout/user-layout').then(c => c.UserLayout),
         canActivate: [authGuard],
         data: { role: 'USER' },
-        children:[
+        children: [
             {
                 path: '',
-                loadChildren: () => import('./features/private/user/routes/user-module').then(c=>c.UserModule),
+                loadChildren: () => import('./features/private/user/routes/user-module').then(c => c.UserModule),
             }
         ]
     },
