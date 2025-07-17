@@ -20,7 +20,10 @@ export class PlanesForm implements OnInit {
   protected isEditing = signal(false);
   protected errorMsg = signal<string | null>(null);
 
-  plan: PlanI = { id: 0, nombre: '', descripcion: '' };
+  plan: PlanI = { 
+    nombre: '', 
+    descripcion: '' 
+  };
 
   formPlan = new FormGroup({
     nombre: new FormControl(this.plan.nombre, [Validators.required, Validators.minLength(3)]),
