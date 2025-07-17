@@ -17,6 +17,7 @@
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">{{ plan.nombre }}</h5>
                     <p class="card-text flex-grow-1">{{ plan.descripcion }}</p>
+                    <p class="card-text"><strong>Precio:</strong> S/ {{ plan.precio }}</p>
                     <div class="mt-auto d-flex justify-content-between">
                         <a class="btn btn-sm btn-warning" [routerLink]="['editar', plan.id]">Editar</a>
                         <button class="btn btn-sm btn-danger" (click)="deletePlan(plan.id!)">Eliminar</button>

@@ -21,6 +21,19 @@
                     }
                 </div>
 
+                <div class="col-md-6">
+                    <label for="precio" class="form-label">Precio (S/)</label>
+                    <input id="precio" type="number" class="form-control" formControlName="precio" min="0" step="0.01">
+                    @if (precio?.invalid && (precio?.dirty || precio?.touched)) {
+                    @if (precio?.hasError('required')) {
+                    <span class="text-danger small">- El precio es obligatorio*</span>
+                    }
+                    @if (precio?.hasError('min') || precio?.hasError('pattern')) {
+                    <span class="text-danger small">- Ingresa un precio válido*</span>
+                    }
+                    }
+                </div>
+
                 <div class="col-md-12">
                     <label for="descripcion" class="form-label">Descripción</label>
                     <textarea id="descripcion" rows="4" class="form-control" formControlName="descripcion"
