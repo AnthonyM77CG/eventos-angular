@@ -9,7 +9,7 @@
             <div class="row g-3">
                 <div class="col-md-6">
                     <label for="nombre" class="form-label">Nombre</label>
-                    <input type="text" id="nombre" class="form-control" formControlName="nombre"
+                    <input id="nombre" type="text" class="form-control" formControlName="nombre"
                         placeholder="Nombre del plan">
                     @if (nombre?.invalid && (nombre?.dirty || nombre?.touched)) {
                     @if (nombre?.hasError('required')) {
@@ -20,9 +20,10 @@
                     }
                     }
                 </div>
+
                 <div class="col-md-12">
                     <label for="descripcion" class="form-label">Descripción</label>
-                    <textarea id="descripcion" class="form-control" formControlName="descripcion" rows="4"
+                    <textarea id="descripcion" rows="4" class="form-control" formControlName="descripcion"
                         placeholder="Descripción del plan"></textarea>
                     @if (descripcion?.invalid && (descripcion?.dirty || descripcion?.touched)) {
                     @if (descripcion?.hasError('maxlength')) {
@@ -33,9 +34,7 @@
             </div>
 
             @if(errorMsg()){
-            <div class="alert alert-danger mt-3" role="alert">
-                {{errorMsg()}}
-            </div>
+            <div class="alert alert-danger mt-3">{{ errorMsg() }}</div>
             }
 
             <div class="d-grid gap-2 mt-4">

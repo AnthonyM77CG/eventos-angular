@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PlanService } from '../../../../../../core/services/plan.service';
@@ -7,23 +7,20 @@ import { PlanI } from '../../../../../../core/models/plan';
 
 @Component({
   selector: 'app-planes-form',
-  imports: [ReactiveFormsModule, CommonModule, RouterLink],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './planes-form.html',
   styleUrl: './planes-form.scss'
 })
 export class PlanesForm implements OnInit {
-  private readonly planService = inject(PlanService);
-  private readonly router = inject(Router);
-  private readonly route = inject(ActivatedRoute)
+  private planService = inject(PlanService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
-  protected isEditing = signal<boolean>(false);
+  protected isEditing = signal(false);
   protected errorMsg = signal<string | null>(null);
 
-  plan: PlanI = {
-    id: 0,
-    nombre: '',
-    descripcion: ''
-  };
+  plan: PlanI = { id: 0, nombre: '', descripcion: '' };
 
   formPlan = new FormGroup({
     nombre: new FormControl(this.plan.nombre, [Validators.required, Validators.minLength(3)]),
@@ -49,13 +46,11 @@ export class PlanesForm implements OnInit {
             this.formPlan.patchValue(planData);
           },
           error: (err) => {
-            console.error('Error al cargar el plan para edición:', err);
+            console.error('Error al cargar el plan:', err);
             this.errorMsg.set('No se pudo cargar el plan para edición.');
             this.router.navigate(['/admin/planes']);
           }
         });
-      } else {
-        this.isEditing.set(false);
       }
     });
   }
@@ -76,16 +71,13 @@ export class PlanesForm implements OnInit {
     const operation = this.isEditing()
       ? this.planService.updatePlan(planToSave.id!, planToSave)
       : this.planService.createPlan(planToSave);
+
     operation.subscribe({
-      next: () => {
-        console.log('Operación exitosa');
-        this.router.navigate(['/admin/planes']);
-      },
-      error: (e) => {
+      next: () => this.router.navigate(['/admin/planes']),
+      error: (err) => {
+        console.error('Error al guardar el plan:', err);
         this.errorMsg.set('Error al guardar el plan. Inténtalo de nuevo.');
-        console.error('Error al guardar plan:', e);
       }
     });
   }
-
 }

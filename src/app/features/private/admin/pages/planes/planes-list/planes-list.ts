@@ -1,13 +1,14 @@
 import { AsyncPipe, CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Observable, tap } from 'rxjs';
 import { PlanService } from '../../../../../../core/services/plan.service';
 import { PlanI } from '../../../../../../core/models/plan';
-import { Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-planes-list',
-  imports: [AsyncPipe, CommonModule, RouterLink],
+  standalone: true,
+  imports: [CommonModule, RouterLink, AsyncPipe],
   templateUrl: './planes-list.html',
   styleUrl: './planes-list.scss'
 })

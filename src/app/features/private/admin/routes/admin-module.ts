@@ -10,6 +10,9 @@ import { EspacioEventoForm } from '../pages/espacio-evento/espacio-evento-form/e
 import { PlanesInicio } from '../pages/planes/planes-inicio/planes-inicio';
 import { PlanesForm } from '../pages/planes/planes-form/planes-form';
 import { PlanesList } from '../pages/planes/planes-list/planes-list';
+import { TarifasForm } from '../pages/tarifas/tarifas-form/tarifas-form';
+import { TarifasInicio } from '../pages/tarifas/tarifas-inicio/tarifas-inicio';
+import { TarifasList } from '../pages/tarifas/tarifas-list/tarifas-list';
 
 const adminRoutes: Routes = [
   { path: 'dashboard', component: Dashboard },
@@ -28,6 +31,15 @@ const adminRoutes: Routes = [
       { path: '', component: PlanesList },
       { path: 'agregar', component: PlanesForm },
       { path: 'editar/:id', component: PlanesForm },
+    ]
+  }
+  , {
+    path: 'tarifas',
+    component: TarifasInicio,
+    children: [
+      { path: '', component: TarifasList },
+      { path: 'agregar', component: TarifasForm },
+      { path: 'editar/:id', component: TarifasForm }
     ]
   }
   ,

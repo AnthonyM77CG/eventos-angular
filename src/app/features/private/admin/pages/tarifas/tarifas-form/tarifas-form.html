@@ -1,0 +1,56 @@
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>{{ isEditing() ? 'Editar Tarifa' : 'Agregar Nueva Tarifa' }}</h2>
+        <a class="btn btn-secondary" routerLink="/admin/tarifas">Volver a Tarifas</a>
+    </div>
+
+    <div class="card p-4 shadow-sm">
+        <form [formGroup]="formTarifa" (ngSubmit)="submitForm()">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label for="precio" class="form-label">Precio</label>
+                    <input type="number" id="precio" class="form-control" formControlName="precio" min="0.01"
+                        step="0.01" placeholder="Precio de la tarifa">
+                    @if (precio?.invalid && (precio?.dirty || precio?.touched)) {
+                    @if (precio?.hasError('required')) {
+                    <span class="text-danger small">- El precio es obligatorio*</span>
+                    }
+                    @if (precio?.hasError('min')) {
+                    <span class="text-danger small">- El precio debe ser mayor a 0*</span>
+                    }
+                    }
+                </div>
+
+                <div class="col-md-4">
+                    <label for="espacioEventoId" class="form-label">ID del Espacio</label>
+                    <input type="number" id="espacioEventoId" class="form-control" formControlName="espacioEventoId"
+                        placeholder="ID del Espacio Evento">
+                    @if (espacioEventoId?.invalid && (espacioEventoId?.dirty || espacioEventoId?.touched)) {
+                    <span class="text-danger small">- Campo obligatorio*</span>
+                    }
+                </div>
+
+                <div class="col-md-4">
+                    <label for="planId" class="form-label">ID del Plan</label>
+                    <input type="number" id="planId" class="form-control" formControlName="planId"
+                        placeholder="ID del Plan">
+                    @if (planId?.invalid && (planId?.dirty || planId?.touched)) {
+                    <span class="text-danger small">- Campo obligatorio*</span>
+                    }
+                </div>
+            </div>
+
+            @if(errorMsg()) {
+            <div class="alert alert-danger mt-3" role="alert">
+                {{ errorMsg() }}
+            </div>
+            }
+
+            <div class="d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-secondary" [disabled]="formTarifa.invalid">
+                    {{ isEditing() ? 'Actualizar Tarifa' : 'Agregar Tarifa' }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
