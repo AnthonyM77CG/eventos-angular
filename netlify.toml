@@ -2,3 +2,8 @@
     command = "ng build"
     functions = "netlify/functions"
     publish = "dist/virellarent-frontend/browser"
+
+    [[redirects]]
+    from = "/*"
+    to = "/index.html"
+    status = 200
