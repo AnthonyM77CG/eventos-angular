@@ -7,6 +7,9 @@ import { ReservasList } from '../pages/reservas/reservas-list/reservas-list';
 import { EspacioEventoInicio } from '../pages/espacio-evento/espacio-evento-inicio/espacio-evento-inicio';
 import { EspacioEventoList } from '../pages/espacio-evento/espacio-evento-list/espacio-evento-list';
 import { EspacioEventoForm } from '../pages/espacio-evento/espacio-evento-form/espacio-evento-form';
+import { PlanesInicio } from '../pages/planes/planes-inicio/planes-inicio';
+import { PlanesForm } from '../pages/planes/planes-form/planes-form';
+import { PlanesList } from '../pages/planes/planes-list/planes-list';
 
 const adminRoutes: Routes = [
   { path: 'dashboard', component: Dashboard },
@@ -18,6 +21,16 @@ const adminRoutes: Routes = [
       { path: 'editar/:id', component: EspacioEventoForm },
     ]
   },
+  {
+    path: 'planes',
+    component: PlanesInicio,
+    children: [
+      { path: '', component: PlanesList },
+      { path: 'agregar', component: PlanesForm },
+      { path: 'editar/:id', component: PlanesForm },
+    ]
+  }
+  ,
   {
     path: 'reservas', component: ReservasInicio,
     children: [

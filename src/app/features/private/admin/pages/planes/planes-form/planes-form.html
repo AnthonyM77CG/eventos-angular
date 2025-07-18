@@ -1,0 +1,60 @@
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>{{ isEditing() ? 'Editar Plan' : 'Agregar Nuevo Plan' }}</h2>
+        <a class="btn btn-secondary" routerLink="/admin/planes">Volver a Planes</a>
+    </div>
+
+    <div class="card p-4 shadow-sm">
+        <form [formGroup]="formPlan" (ngSubmit)="submitForm()">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input id="nombre" type="text" class="form-control" formControlName="nombre"
+                        placeholder="Nombre del plan">
+                    @if (nombre?.invalid && (nombre?.dirty || nombre?.touched)) {
+                    @if (nombre?.hasError('required')) {
+                    <span class="text-danger small">- El nombre es obligatorio*</span>
+                    }
+                    @if (nombre?.hasError('minlength')) {
+                    <span class="text-danger small">- El nombre debe tener al menos 3 caracteres*</span>
+                    }
+                    }
+                </div>
+
+                <div class="col-md-6">
+                    <label for="precio" class="form-label">Precio (S/)</label>
+                    <input id="precio" type="number" class="form-control" formControlName="precio" min="0" step="0.01">
+                    @if (precio?.invalid && (precio?.dirty || precio?.touched)) {
+                    @if (precio?.hasError('required')) {
+                    <span class="text-danger small">- El precio es obligatorio*</span>
+                    }
+                    @if (precio?.hasError('min') || precio?.hasError('pattern')) {
+                    <span class="text-danger small">- Ingresa un precio válido*</span>
+                    }
+                    }
+                </div>
+
+                <div class="col-md-12">
+                    <label for="descripcion" class="form-label">Descripción</label>
+                    <textarea id="descripcion" rows="4" class="form-control" formControlName="descripcion"
+                        placeholder="Descripción del plan"></textarea>
+                    @if (descripcion?.invalid && (descripcion?.dirty || descripcion?.touched)) {
+                    @if (descripcion?.hasError('maxlength')) {
+                    <span class="text-danger small">- La descripción no puede exceder los 500 caracteres*</span>
+                    }
+                    }
+                </div>
+            </div>
+
+            @if(errorMsg()){
+            <div class="alert alert-danger mt-3">{{ errorMsg() }}</div>
+            }
+
+            <div class="d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-secondary" [disabled]="formPlan.invalid">
+                    {{ isEditing() ? 'Actualizar Plan' : 'Agregar Plan' }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

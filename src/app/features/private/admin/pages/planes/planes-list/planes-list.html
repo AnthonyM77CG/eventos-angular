@@ -1,0 +1,34 @@
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Gestión de Planes</h2>
+        <a class="btn btn-primary" routerLink="agregar">Agregar Plan</a>
+    </div>
+
+    @if ((planes$ | async); as planes) {
+    @if (planes.length === 0) {
+    <div class="alert alert-info text-center" role="alert">
+        No hay planes registrados.
+    </div>
+    } @else {
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @for (plan of planes; track plan.id) {
+        <div class="col">
+            <div class="card h-100 shadow-sm espacio-card">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ plan.nombre }}</h5>
+                    <p class="card-text flex-grow-1">{{ plan.descripcion }}</p>
+                    <p class="card-text"><strong>Precio:</strong> S/ {{ plan.precio }}</p>
+                    <div class="mt-auto d-flex justify-content-between">
+                        <a class="btn btn-sm btn-warning" [routerLink]="['editar', plan.id]">Editar</a>
+                        <button class="btn btn-sm btn-danger" (click)="deletePlan(plan.id!)">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+    }
+    } @else {
+    <p class="text-center text-muted">Cargando planes...</p>
+    }
+</div>
