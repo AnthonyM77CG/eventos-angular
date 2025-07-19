@@ -7,7 +7,6 @@ import { PlanI } from '../../../../../../core/models/plan';
 
 @Component({
   selector: 'app-planes-list',
-  standalone: true,
   imports: [CommonModule, RouterLink, AsyncPipe],
   templateUrl: './planes-list.html',
   styleUrl: './planes-list.scss'

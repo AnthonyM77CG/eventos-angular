@@ -1,31 +1,31 @@
-<div class="container mt-4">
+<div class="container mt-4 vista-usuario-reservas">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>Gestión de Reservas</h2>
-        <a class="btn btn-primary" routerLink="agregar">Agregar Reserva</a>
+        <h2 class="titulo-principal">Mis Reservas</h2>
     </div>
 
     @if ((reservas$ | async); as reservas) {
     @if (reservas.length === 0) {
-    <div class="alert alert-info text-center" role="alert">
+    <div class="alert alert-secondary text-center" role="alert">
         No hay reservas registradas.
     </div>
     } @else {
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <div class="row row-cols-1 row-cols-md-2 g-4">
         @for (reserva of reservas; track reserva.id) {
         <div class="col">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">Reserva del {{ reserva.fecha }}</h5>
-                    <p class="card-text"><strong>Hora Inicio:</strong> {{ reserva.horaInicio }}</p>
-                    <p class="card-text"><strong>Hora Fin:</strong> {{ reserva.horaFin }}</p>
-                    <p class="card-text"><strong>Asistentes:</strong> {{ reserva.asistentes }}</p>
-                    <p class="card-text"><strong>Estado:</strong> {{ reserva.estado }}</p>
-                    <p class="card-text"><strong>Espacio:</strong> {{ reserva.espacio.nombre }}</p>
-                    <p class="card-text"><strong>Ubicación:</strong> {{ reserva.espacio.ubicacion }}</p>
-                    <p class="card-text"><strong>Plan:</strong> {{ reserva.plan.nombre }}</p>
-                    <p class="card-text"><strong>Usuario:</strong> {{ reserva.usuario.usuario }}</p>
-                    <div class="mt-auto d-flex justify-content-end">
-                        <a class="btn btn-sm btn-warning" [routerLink]="['editar', reserva.id]">Editar</a>
+            <div class="card reserva-card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3 text-dark">{{ reserva.fecha | date: 'dd/MM/yyyy' }}</h5>
+                    <div class="detalle">
+                        <span><strong>Hora:</strong> {{ reserva.horaInicio }} - {{ reserva.horaFin }}</span>
+                        <span><strong>Asistentes:</strong> {{ reserva.asistentes }}</span>
+                    </div>
+                    <div class="detalle">
+                        <span><strong>Estado:</strong> {{ reserva.estado }}</span>
+                        <span><strong>Espacio:</strong> {{ reserva.espacio.nombre }}</span>
+                    </div>
+                    <div class="detalle">
+                        <span><strong>Ubicación:</strong> {{ reserva.espacio.ubicacion }}</span>
+                        <span><strong>Plan:</strong> {{ reserva.plan.nombre }}</span>
                     </div>
                 </div>
             </div>
@@ -34,6 +34,9 @@
     </div>
     }
     } @else {
-    <p class="text-center text-muted">Cargando reservas...</p>
+    <div class="text-center text-muted">
+        <div class="spinner-border" role="status"></div>
+        <p class="mt-2">Cargando reservas...</p>
+    </div>
     }
 </div>

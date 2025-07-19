@@ -1,5 +1,4 @@
 import { EspacioEventoI } from "./espacio-evento";
-import { PagoI } from "./pago";
 import { PlanI } from "./plan";
 import { UsuarioI } from "./usuario";
 

@@ -1,8 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AuthService } from '../../../../../../core/services/auth.service';
 import { ReservaService } from '../../../../../../core/services/reserva.service';
 import { ReservaI } from '../../../../../../core/models/reserva';
-import { Observable } from 'rxjs';
+import { catchError, map, Observable, of, tap } from 'rxjs';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
@@ -25,7 +25,11 @@ export class ReservasList implements OnInit {
   getReservasByUserId(): void {
     const userId = this.authService.getUserIdLogin();
     if (userId) {
-      this.reservas$ = this.reservaService.getReservasByUserId(userId);
+      this.reservas$ = this.reservaService.getReservasByUserId(userId).pipe(
+        map(reservas => reservas.sort((a, b) =>
+          new Date(a.fecha).getTime() - new Date(b.fecha).getTime()
+        ))
+      );
     }
   }
 }
