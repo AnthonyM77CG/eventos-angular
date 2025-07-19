@@ -7,7 +7,6 @@ import { PlanI } from '../../../../../../core/models/plan'
 
 @Component({
   selector: 'app-planes-form',
-  standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './planes-form.html',
   styleUrl: './planes-form.scss'

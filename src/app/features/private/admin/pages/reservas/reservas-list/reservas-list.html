@@ -1,7 +1,6 @@
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>Mis Reservas</h2>
-        <a class="btn btn-secondary" routerLink="agregar">Agregar Reserva</a>
     </div>
     @if ((reservas$ | async)?.length === 0) {
     <div class="alert alert-info text-center" role="alert">
@@ -35,11 +34,13 @@
                     <h6>Detalles del Plan:</h6>
                     <p class="card-text"><strong>Nombre:</strong> {{ reserva.plan.nombre }}</p>
                     <p class="card-text"><strong>Descripción:</strong> {{ reserva.plan.descripcion }}</p>
-
+                    <p class="card-text"><strong>precio:</strong> {{ reserva.plan.precio }}</p>
                     <hr>
                     <h6>Detalles del Usuario:</h6>
                     <p class="card-text"><strong>Usuario:</strong> {{ reserva.usuario.usuario }}</p>
                     <p class="card-text"><strong>Correo:</strong> {{ reserva.usuario.correo }}</p>
+                    <hr>
+                    <a class="btn btn-secondary" routerLink="editar">editar Reserva</a>
                 </div>
             </div>
         </div>

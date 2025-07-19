@@ -1,4 +1,5 @@
 import { EspacioEventoI } from "./espacio-evento";
+import { PagoI } from "./pago";
 import { PlanI } from "./plan";
 import { UsuarioI } from "./usuario";
 
@@ -13,4 +14,5 @@ export interface ReservaI {
     usuario: UsuarioI;
     espacio: EspacioEventoI;
     plan: PlanI;
+    pago?: PagoI;
 }

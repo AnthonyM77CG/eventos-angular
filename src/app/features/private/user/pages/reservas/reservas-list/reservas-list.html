@@ -1,6 +1,7 @@
 <div class="container mt-4 vista-usuario-reservas">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="titulo-principal">Mis Reservas</h2>
+        <a class="btn btn-secondary" routerLink="/user/reservas/agregar">Agregar Reserva</a>
     </div>
 
     @if ((reservas$ | async); as reservas) {
@@ -17,15 +18,18 @@
                     <h5 class="card-title mb-3 text-dark">{{ reserva.fecha | date: 'dd/MM/yyyy' }}</h5>
                     <div class="detalle">
                         <span><strong>Hora:</strong> {{ reserva.horaInicio }} - {{ reserva.horaFin }}</span>
-                        <span><strong>Asistentes:</strong> {{ reserva.asistentes }}</span>
                     </div>
                     <div class="detalle">
-                        <span><strong>Estado:</strong> {{ reserva.estado }}</span>
                         <span><strong>Espacio:</strong> {{ reserva.espacio.nombre }}</span>
+                        <span><strong>Plan:</strong> {{ reserva.plan.nombre }}</span>
                     </div>
                     <div class="detalle">
                         <span><strong>Ubicación:</strong> {{ reserva.espacio.ubicacion }}</span>
-                        <span><strong>Plan:</strong> {{ reserva.plan.nombre }}</span>
+                        <span><strong>Precio:</strong> {{ reserva.plan.precio }}</span>
+                    </div>
+                    <div class="detalle">
+                        <span><strong>Asistentes:</strong> {{ reserva.asistentes }}</span>
+                        <span><strong>Estado:</strong> {{ reserva.estado }}</span>
                     </div>
                 </div>
             </div>

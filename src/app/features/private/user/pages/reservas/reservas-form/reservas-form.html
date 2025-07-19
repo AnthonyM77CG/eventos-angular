@@ -1,98 +1,91 @@
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>Agregar Nueva Reserva</h2>
+        <h2>{{ isReservaCreada ? 'Confirmar Pago' : 'Agregar Nueva Reserva' }}</h2>
         <a class="btn btn-secondary" routerLink="/user/reservas">Volver a Mis Reservas</a>
     </div>
 
     <div class="card p-4 shadow-sm">
-        <form [formGroup]="formReserva" (ngSubmit)="crearReserva()">
+        <form [formGroup]="formReserva">
             <div class="row g-3">
                 <div class="col-md-6">
                     <label for="fecha" class="form-label">Fecha</label>
                     <input type="date" id="fecha" class="form-control" formControlName="fecha">
-                    @if (fecha?.invalid && (fecha?.dirty || fecha?.touched)) {
-                    @if (fecha?.hasError('required')) {
-                    <span class="text-danger small">- La fecha es obligatoria*</span>
-                    }
-                    }
                 </div>
                 <div class="col-md-3">
                     <label for="horaInicio" class="form-label">Hora de Inicio</label>
                     <input type="time" id="horaInicio" class="form-control" formControlName="horaInicio">
-                    @if (horaInicio?.invalid && (horaInicio?.dirty || horaInicio?.touched)) {
-                    @if (horaInicio?.hasError('required')) {
-                    <span class="text-danger small">- La hora de inicio es obligatoria*</span>
-                    }
-                    }
                 </div>
                 <div class="col-md-3">
                     <label for="horaFin" class="form-label">Hora de Fin</label>
                     <input type="time" id="horaFin" class="form-control" formControlName="horaFin">
-                    @if (horaFin?.invalid && (horaFin?.dirty || horaFin?.touched)) {
-                    @if (horaFin?.hasError('required')) {
-                    <span class="text-danger small">- La hora de fin es obligatoria*</span>
-                    }
-                    }
                 </div>
                 <div class="col-md-6">
                     <label for="asistentes" class="form-label">Número de Asistentes</label>
                     <input type="number" id="asistentes" class="form-control" formControlName="asistentes" min="1">
-                    @if (asistentes?.invalid && (asistentes?.dirty || asistentes?.touched)) {
-                    @if (asistentes?.hasError('required')) {
-                    <span class="text-danger small">- El número de asistentes es obligatorio*</span>
-                    }
-                    @if (asistentes?.hasError('min')) {
-                    <span class="text-danger small">- Debe haber al menos 1 asistente*</span>
-                    }
-                    }
                 </div>
                 <div class="col-md-6">
                     <label for="espacio" class="form-label">Espacio de Evento</label>
                     <select id="espacio" class="form-select" formControlName="espacio">
                         <option [ngValue]="null" disabled>Seleccione un espacio</option>
-                        @if ((espacios$ | async); as espacios) {
-                        @for (espacio of espacios; track espacio.id) {
-                        <option [ngValue]="espacio.id">{{ espacio.nombre }} ({{ espacio.ubicacion }})</option>
-                        }
-                        } @else {
-                        <option disabled>Cargando espacios...</option>
-                        }
+                        <ng-container *ngFor="let espacio of (espacios$ | async)">
+                            <option [ngValue]="espacio.id">{{ espacio.nombre }} ({{ espacio.ubicacion }})</option>
+                        </ng-container>
                     </select>
-                    @if (espacio?.invalid && (espacio?.dirty || espacio?.touched)) {
-                    @if (espacio?.hasError('required')) {
-                    <span class="text-danger small">- El espacio es obligatorio*</span>
-                    }
-                    }
                 </div>
                 <div class="col-md-6">
                     <label for="plan" class="form-label">Plan</label>
-                    <select id="plan" class="form-select" formControlName="plan">
+                    <select id="plan" class="form-select" formControlName="plan" (change)="onPlanChange($event)">
                         <option [ngValue]="null" disabled>Seleccione un plan</option>
-                        @if ((planes$ | async); as planes) {
-                        @for (plan of planes; track plan.id) {
-                        <option [ngValue]="plan.id">{{ plan.nombre }}</option>
-                        }
-                        } @else {
-                        <option disabled>Cargando planes...</option>
-                        }
+                        <ng-container *ngFor="let plan of (planes$ | async)">
+                            <option [ngValue]="plan.id">{{ plan.nombre }} - {{ plan.precio | currency }}</option>
+                        </ng-container>
                     </select>
-                    @if (plan?.invalid && (plan?.dirty || plan?.touched)) {
-                    @if (plan?.hasError('required')) {
-                    <span class="text-danger small">- El plan es obligatorio*</span>
-                    }
-                    }
                 </div>
             </div>
-
-            @if(errorMsg()){
-            <div class="alert alert-danger mt-3" role="alert">
-                {{errorMsg()}}
-            </div>
-            }
+            <hr>
+            <ng-container *ngIf="isReservaCreada">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="metodoPago" class="form-label">Seleciona tu Método de Pago</label>
+                        <select id="metodoPago" class="form-select" formControlName="metodoPago">
+                            <option value="TARJETA">TARJETA</option>
+                            <option value="EFECTIVO">EFECTIVO</option>
+                            <option value="TRANSFERENCIA">TRANSFERENCIA</option>
+                        </select>
+                    </div>
+                </div>
+            </ng-container>
 
             <div class="d-grid gap-2 mt-4">
-                <button type="submit" class="btn btn-secondary" [disabled]="formReserva.invalid">Crear Reserva</button>
+                <button type="button" class="btn btn-secondary"
+                    [disabled]="formReserva.invalid || isReservaBeingCreated" (click)="crearReserva()">
+                    Crear Reserva
+                </button>
+
+                <button type="button" class="btn btn-secondary" [disabled]="!isReservaCreada || isPagoBeingCreated"
+                    (click)="crearPago()">
+                    Crear Pago
+                </button>
             </div>
         </form>
+    </div>
+
+    <div *ngIf="reservaCreada" class="mt-4 alert alert-info">
+        <strong>Reserva creada exitosamente:</strong>
+        <p><strong>ID de la Reserva:</strong> {{ reservaCreada.id }}</p>
+        <p><strong>Fecha:</strong> {{ reservaCreada.fecha }}</p>
+        <p><strong>Hora de Inicio:</strong> {{ reservaCreada.horaInicio }}</p>
+        <p><strong>Hora de Fin:</strong> {{ reservaCreada.horaFin }}</p>
+        <p><strong>Asistentes:</strong> {{ reservaCreada.asistentes }}</p>
+        <p><strong>Estado:</strong> {{ reservaCreada.estado }}</p>
+
+        <div *ngIf="pagoProyectado" class="mt-4 alert alert-warning">
+            <strong>Pago proyectado:</strong>
+            <p><strong>Monto:</strong> {{ pagoProyectado.monto | currency }}</p>
+            <p><strong>Método de Pago:</strong> {{ pagoProyectado.metodoPago }}</p>
+            <p><strong>Fecha de Pago:</strong> {{ pagoProyectado.fechaPago | date:'dd/MM/yyyy' }}</p>
+            <p><strong>ID de la Reserva Asociada:</strong> {{ pagoProyectado.reserva.id }}</p>
+        </div>
+
     </div>
 </div>

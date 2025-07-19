@@ -11,6 +11,7 @@ const userRoutes: Routes = [
     children: [
       { path: '', component: ReservasList },
       { path: 'agregar', component: ReservasForm },
+      { path: 'agregar-pago', component: ReservasForm }
     ]
   },
   { path: '', redirectTo: 'reservas', pathMatch: 'full' }
