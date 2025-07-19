@@ -9,7 +9,7 @@ export interface ReservaI {
     horaInicio: string;
     horaFin: string;
     asistentes: number;
-    estado: 'PENDIENTE' | 'CONFIRMADA' | 'CANCELADA';
+    estado: 'CONFIRMADA' | 'CANCELADA';
     creadoEn: string;
     usuario: UsuarioI;
     espacio: EspacioEventoI;

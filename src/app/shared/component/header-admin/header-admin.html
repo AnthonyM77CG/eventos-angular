@@ -1,54 +1,25 @@
-<aside class="bg-white border-end p-3 d-flex flex-column position-fixed h-100" style="width: 280px;">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div class="d-flex align-items-center gap-2 fw-semibold fs-5">
-            <span>Virella Dashboard</span>
-        </div>
-    </div>
+<aside class="sidebar">
+  <div class="branding">
+    <img src="/Logo.png" alt="Logo" class="navbar-logo" />
+  </div>
 
-    <div class="d-flex align-items-center gap-2 bg-light p-2 rounded mb-4">
-        <span class="fs-4">👤</span>
-        <div>
-            <div class="fw-semibold">{{username}}</div>
-            <div class="text-muted small">Administrador</div>
-        </div>
+  <div class="user-info">
+    <div class="avatar">{{ username?.[0] }}</div>
+    <div>
+      <div class="username">{{ username }}</div>
+      <div class="role">Administrador</div>
     </div>
+  </div>
 
-    <ul class="nav flex-column mb-auto">
-        <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" routerLink="dashboard">
-                <span>Dashboard</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" routerLink="locales">
-                <span>Locales</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" routerLink="planes">
-                <span>Planes</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" routerLink="tarifas">
-                <span>Tarifas</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" routerLink="reservas">
-                <span>Reservas</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" routerLink="Hpagos">
-                <span>Historial Pagos</span>
-            </a>
-        </li>
-    </ul>
+  <ul class="nav-links list-unstyled">
+    <li><a routerLink="dashboard" class="nav-link">Dashboard</a></li>
+    <li><a routerLink="locales" class="nav-link">Locales</a></li>
+    <li><a routerLink="planes" class="nav-link">Planes</a></li>
+    <li><a routerLink="reservas" class="nav-link">Reservas</a></li>
+    <li><a routerLink="Hpagos" class="nav-link">Historial Pagos</a></li>
+  </ul>
 
-    <div class="mt-auto">
-        <a class="btn btn-outline-danger w-100 d-flex align-items-center gap-2" (click)="cerrarSesion()">
-            <span>Cerrar Sesión</span>
-        </a>
-    </div>
+  <div class="logout">
+    <button class="logout-btn" (click)="cerrarSesion()">Cerrar Sesión</button>
+  </div>
 </aside>

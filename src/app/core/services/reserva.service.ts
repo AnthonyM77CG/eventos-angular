@@ -6,11 +6,11 @@ import { ReservaI } from '../models/reserva';
   providedIn: 'root'
 })
 export class ReservaService {
-  private URL = 'http://localhost:8080/api/reservas'
-  private http = inject(HttpClient)
+  private URL = 'http://localhost:8080/api/reservas';
+  private http = inject(HttpClient);
 
   getReservas() {
-    return this.http.get<ReservaI[]>(this.URL)
+    return this.http.get<ReservaI[]>(this.URL);
   }
 
   getReservasByUserId(userId: number) {

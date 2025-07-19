@@ -1,25 +1,21 @@
 <aside class="sidebar">
-    <div class="dashboard-title">
-        <span>Virella Dashboard</span>
+    <div class="branding">
+        <img src="/Logo.png" alt="Logo" class="navbar-logo" />
     </div>
 
     <div class="user-info">
-        <span class="user-icon">👤</span>
+        <div class="avatar">{{ userName?.[0] }}</div>
         <div>
-            <div class="username">{{userName}}</div>
+            <div class="username">{{ userName }}</div>
             <div class="role">Usuario</div>
         </div>
     </div>
 
-    <ul class="nav-list">
-        <li class="nav-item">
-            <a class="nav-link" routerLink="reservas">
-                <span>Mis Reservas</span>
-            </a>
-        </li>
+    <ul class="nav-links list-unstyled">
+        <li><a routerLink="reservas" class="nav-link" routerLinkActive="active">Mis Reservas</a></li>
     </ul>
 
-    <button class="logout-button" (click)="cerrarSesion()">
-        <span>Cerrar Sesión</span>
-    </button>
+    <div class="logout">
+        <button class="logout-btn" (click)="cerrarSesion()">Cerrar Sesión</button>
+    </div>
 </aside>

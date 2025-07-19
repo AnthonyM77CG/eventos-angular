@@ -20,7 +20,7 @@ import { UsuarioService } from '../../../../../../core/services/usuario.service'
 })
 export class ReservasForm implements OnInit {
   private authService = inject(AuthService);
-  private usuarioService = inject(UsuarioService)
+  private usuarioService = inject(UsuarioService);
   private reservaService = inject(ReservaService);
   private espacioService = inject(EspacioEventoService);
   private planService = inject(PlanService);
@@ -35,7 +35,7 @@ export class ReservasForm implements OnInit {
     horaInicio: '',
     horaFin: '',
     asistentes: 1,
-    estado: 'PENDIENTE',
+    estado: 'CONFIRMADA',
     creadoEn: new Date().toISOString(),
     usuario: undefined,
     espacio: undefined,
@@ -102,21 +102,19 @@ export class ReservasForm implements OnInit {
     this.espacioService.getEspacioEventoById(selectedEspacioId!).subscribe(espacio => {
       this.planService.getPlanById(selectedPlanId!).subscribe(plan => {
         this.usuarioService.getUsuarioById(userId!).subscribe(usuario => {
-          console.log('Usuario obtenido del backend:', usuario);
           const nuevaReserva: ReservaI = {
             fecha: this.formReserva.value.fecha!,
             horaInicio: this.formReserva.value.horaInicio!,
             horaFin: this.formReserva.value.horaFin!,
             asistentes: this.formReserva.value.asistentes!,
-            estado: 'PENDIENTE',
+            estado: 'CONFIRMADA',
             creadoEn: new Date().toISOString(),
-            usuario: usuario, // Puedes obtener el correo del usuario si lo tienes en el token o en el servicio de autenticación
+            usuario: usuario,
             espacio: espacio,
             plan: plan
           };
           this.reservaService.createReserva(nuevaReserva).subscribe({
             next: () => {
-              console.log('Reserva creada exitosamente');
               this.router.navigate(['/user/reservas']);
             },
             error: (e) => {
