@@ -10,8 +10,7 @@ const userRoutes: Routes = [
     path: 'reservas', component: ReservasInicio,
     children: [
       { path: '', component: ReservasList },
-      { path: 'agregar', component: ReservasForm },
-      { path: 'agregar-pago', component: ReservasForm }
+      { path: 'agregar', component: ReservasForm }
     ]
   },
   { path: '', redirectTo: 'reservas', pathMatch: 'full' }
