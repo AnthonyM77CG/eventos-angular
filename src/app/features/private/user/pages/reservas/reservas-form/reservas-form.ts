@@ -44,10 +44,7 @@ export class ReservasForm implements OnInit {
     horaFin: '',
     asistentes: 1,
     estado: 'CONFIRMADA',
-    creadoEn: new Date().toISOString(),
-    usuario: undefined,
-    espacio: undefined,
-    plan: undefined
+    creadoEn: new Date().toISOString()
   };
 
   reservaCreada: ReservaI | null = null;
@@ -62,25 +59,16 @@ export class ReservasForm implements OnInit {
     asistentes: new FormControl(this.reserva.asistentes, [Validators.required, Validators.min(1)]),
     espacio: new FormControl(this.reserva.espacio?.id, [Validators.required]),
     plan: new FormControl(this.reserva.plan?.id, [Validators.required]),
-    metodoPago: new FormControl<'TARJETA' | 'EFECTIVO' | 'TRANSFERENCIA'>('TARJETA', [Validators.required]),
-    estadoPago: new FormControl<'COMPLETADO' | 'REEMBOLSADO'>('COMPLETADO', [Validators.required])
+    metodoPago: new FormControl<'TARJETA' | 'EFECTIVO' | 'TRANSFERENCIA'>('TARJETA', [Validators.required])
   });
 
   ngOnInit(): void {
     this.espacios$ = this.espacioService.getEspaciosEvento();
     this.planes$ = this.planService.getPlanes();
 
-    // Actualiza el metodo de pago del pagoProyectado cuando el usuario cambia el select
     this.formReserva.get('metodoPago')?.valueChanges.subscribe((metodo) => {
       if (this.pagoProyectado) {
         this.pagoProyectado.metodoPago = metodo!;
-      }
-    });
-
-    // Actualiza el estado del pago también si es necesario
-    this.formReserva.get('estadoPago')?.valueChanges.subscribe((estado) => {
-      if (this.pagoProyectado) {
-        this.pagoProyectado.estadoPago = estado!;
       }
     });
   }
@@ -89,7 +77,6 @@ export class ReservasForm implements OnInit {
     const selectedPlanId = event.target.value;
     this.planService.getPlanById(selectedPlanId).subscribe(plan => {
       this.selectedPlanPrecio = plan.precio;
-
       if (this.pagoProyectado) {
         this.pagoProyectado.monto = plan.precio;
       }
@@ -106,19 +93,14 @@ export class ReservasForm implements OnInit {
     this.isReservaBeingCreated = true;
 
     const userId = this.authService.getUserIdLogin();
-    const username = this.authService.getUsernameLogin();
-
-    if (!userId || !username) {
-      this.errorMsg.set('No se pudo obtener la información del usuario logueado.');
-      return;
-    }
-
     const selectedEspacioId = this.formReserva.value.espacio;
     const selectedPlanId = this.formReserva.value.plan;
 
-    this.espacioService.getEspacioEventoById(selectedEspacioId!).subscribe(espacio => {
-      this.planService.getPlanById(selectedPlanId!).subscribe(plan => {
-        this.usuarioService.getUsuarioById(userId!).subscribe(usuario => {
+    if (!userId || !selectedEspacioId || !selectedPlanId) return;
+
+    this.espacioService.getEspacioEventoById(selectedEspacioId).subscribe(espacio => {
+      this.planService.getPlanById(selectedPlanId).subscribe(plan => {
+        this.usuarioService.getUsuarioById(userId).subscribe(usuario => {
           const nuevaReserva: ReservaI = {
             fecha: this.formReserva.value.fecha!,
             horaInicio: this.formReserva.value.horaInicio!,
@@ -126,9 +108,9 @@ export class ReservasForm implements OnInit {
             asistentes: this.formReserva.value.asistentes!,
             estado: 'CONFIRMADA',
             creadoEn: new Date().toISOString(),
-            usuario: usuario,
-            espacio: espacio,
-            plan: plan
+            usuario,
+            espacio,
+            plan
           };
 
           this.reservaService.createReserva(nuevaReserva).subscribe({
@@ -137,11 +119,9 @@ export class ReservasForm implements OnInit {
               this.isReservaBeingCreated = false;
               this.reservaCreada = reservaCreada;
 
-              // Crea el pago proyectado para mostrarlo
               this.pagoProyectado = {
-                monto: this.selectedPlanPrecio ?? plan.precio,
+                monto: plan.precio,
                 metodoPago: this.formReserva.value.metodoPago!,
-                estadoPago: this.formReserva.value.estadoPago!,
                 fechaPago: new Date().toISOString(),
                 reserva: { id: reservaCreada.id! }
               };
@@ -161,29 +141,20 @@ export class ReservasForm implements OnInit {
   }
 
   crearPago() {
-    if (!this.isReservaCreada) {
-      this.errorMsg.set('Primero crea la reserva antes de realizar el pago.');
-      return;
-    }
-
-    if (!this.pagoProyectado) {
-      this.errorMsg.set('No hay un pago proyectado disponible.');
-      return;
-    }
+    if (!this.pagoProyectado) return;
 
     this.isPagoBeingCreated = true;
 
     this.pagoService.createPago(this.pagoProyectado).subscribe({
-      next: (pagoCreado) => {
+      next: (pago) => {
         this.isPagoBeingCreated = false;
-        this.pagoCreado = pagoCreado;
         this.isPagoCreado = true;
-        console.log('Pago creado:', pagoCreado);
-        this.router.navigate(['/user/reservas']);
+        this.pagoCreado = pago;
+        console.log('Pago insertado:', pago);
       },
       error: (e) => {
         this.isPagoBeingCreated = false;
-        this.errorMsg.set('Error al crear el pago. Inténtalo de nuevo.');
+        this.errorMsg.set('Error al crear el pago.');
         console.error('Error al crear pago:', e);
       }
     });
