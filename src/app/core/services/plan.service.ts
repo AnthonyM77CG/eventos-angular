@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { PlanI } from '../models/plan';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlanService {
-  private URL = 'http://localhost:8080/api/planes';
+  private URL = `${environment.apiBaseUrl}/planes`;
   private http = inject(HttpClient);
 
   getPlanes() {
