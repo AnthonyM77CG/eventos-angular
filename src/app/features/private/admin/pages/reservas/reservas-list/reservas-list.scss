@@ -1,0 +1,19 @@
+.vista-reservas-corporativas {
+  .titulo-principal {
+    color: #97524e;
+    font-weight: bold;
+  }
+
+  .reserva-card {
+    border: none;
+    border-radius: 1rem;
+    background-color: #fff7f6;
+
+    .detalle {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.25rem;
+      font-size: 0.9rem;
+    }
+  }
+}

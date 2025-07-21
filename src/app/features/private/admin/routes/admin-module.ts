@@ -10,6 +10,8 @@ import { EspacioEventoForm } from '../pages/espacio-evento/espacio-evento-form/e
 import { PlanesInicio } from '../pages/planes/planes-inicio/planes-inicio';
 import { PlanesForm } from '../pages/planes/planes-form/planes-form';
 import { PlanesList } from '../pages/planes/planes-list/planes-list';
+import { PagosInicio } from '../pages/pagos/pagos-inicio/pagos-inicio';
+import { PagosLista } from '../pages/pagos/pagos-lista/pagos-lista';
 
 const adminRoutes: Routes = [
   { path: 'dashboard', component: Dashboard },
@@ -36,7 +38,13 @@ const adminRoutes: Routes = [
     children: [
       { path: '', component: ReservasList }
     ]
-  },
+  }, {
+    path: 'pagos', component: PagosInicio,
+    children: [
+      { path: '', component: PagosLista }
+    ]
+  }
+  ,
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
 ];
 

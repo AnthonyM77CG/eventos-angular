@@ -2,7 +2,7 @@ import { RolI } from "./rol";
 
 export interface UsuarioI {
     id: number;
-    usuario: string; // Nombre de usuario
+    usuario: string;
     correo: string;
     rol: RolI;
 }
