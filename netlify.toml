@@ -1,5 +1,4 @@
 [build]
-    command = [build]
   command = "echo \"export const environment = { production: true, apiBaseUrl: '${NG_ENV_API_BASE_URL}' };\" > src/app/core/environments/environment.ts && ng build --configuration production"
   publish = "dist/virellarent-frontend/browser"
 
