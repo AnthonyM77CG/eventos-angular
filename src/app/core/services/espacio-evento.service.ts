@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { EspacioEventoI } from '../models/espacio-evento';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EspacioEventoService {
-  private URL = 'http://localhost:8080/api/espacios_evento'
+  private URL = `${environment.apiBaseUrl}/espacios_evento`;
   private http = inject(HttpClient)
 
   getEspaciosEvento() {

@@ -7,12 +7,13 @@ import { HttpClient } from '@angular/common/http';
 import { Usuario } from '../../features/auth/models/usuario';
 import { jwtDecode } from 'jwt-decode';
 import { DecodedRole } from '../../features/auth/models/decoded-token';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private URL = 'http://localhost:8080/api/v1/auth';
+  private URL = `${environment.apiBaseUrl}/v1/auth`;
   private router = inject(Router);
   private http = inject(HttpClient);
 
