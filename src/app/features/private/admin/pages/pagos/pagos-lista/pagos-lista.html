@@ -1,26 +1,31 @@
 <div class="container py-4">
   <h2 class="mb-4 text-center fw-bold" style="color: #97524e;">Pagos Realizados</h2>
 
-  <ng-container *ngIf="pagos$ | async as pagos">
-    <div *ngIf="pagos.length === 0" class="alert alert-info text-center">
-      No hay pagos registrados.
-    </div>
-
-    <div class="row">
-      <div class="col-md-4 mb-4" *ngFor="let pago of pagos; trackBy: trackById">
-        <div class="card h-100 shadow-sm rounded-3">
-          <div class="card-header text-white"  style="background-color: #97524e">
-            <h5 class="card-title mb-0">S/ {{ pago.monto }}</h5>
-            <p class="mb-0">{{ pago.metodoPago }}</p>
-          </div>
-          <div class="card-body">
-            <ul class="list-unstyled mb-0">
-              <li><strong>Fecha:</strong> {{ pago.fechaPago | date: 'dd/MM/yyyy' }}</li>
-              <li><strong>Reserva:</strong> ID #{{ pago.reserva.id }}</li>
-            </ul>
-          </div>
-        </div>
+  @if (pagos$ | async; as pagos) {
+    @if (pagos.length === 0) {
+      <div class="alert alert-info text-center">
+        No hay pagos registrados.
       </div>
-    </div>
-  </ng-container>
+    } @else {
+      <div class="row">
+        @for (pago of pagos; track pago.id) {
+          <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm rounded-3">
+              <div class="card-header text-white"  style="background-color: #97524e">
+                <h5 class="card-title mb-0">S/ {{ pago.monto }}</h5>
+                <p class="mb-0">{{ pago.metodoPago }}</p>
+              </div>
+              <div class="card-body">
+                <ul class="list-unstyled mb-0">
+                  <li><strong>Fecha:</strong> {{ pago.fechaPago | date: 'dd/MM/yyyy' }}</li>
+                  <li><strong>Reserva:</strong> ID #{{ pago.reserva.id }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  }
 </div>
+

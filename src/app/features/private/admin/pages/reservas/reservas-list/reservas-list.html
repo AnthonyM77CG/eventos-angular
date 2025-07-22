@@ -12,9 +12,9 @@
         (ngModelChange)="filtrarReservas()"
       >
         <option value="TODOS">Todos los meses</option>
-        <option *ngFor="let mes of mesesDisponibles" [value]="mes.value">
-          {{ mes.label }}
-        </option>
+        @for (mes of mesesDisponibles; track mes.value) {
+          <option [value]="mes.value">{{ mes.label }}</option>
+        }
       </select>
     </div>
     <div class="col-md-6 mb-3">
@@ -26,38 +26,42 @@
         (ngModelChange)="filtrarReservas()"
       >
         <option value="TODOS">Todos los años</option>
-        <option *ngFor="let anio of aniosDisponibles" [value]="anio">
-          {{ anio }}
-        </option>
+        @for (anio of aniosDisponibles; track anio) {
+          <option [value]="anio">{{ anio }}</option>
+        }
       </select>
     </div>
   </div>
 
   <!-- Listado de reservas -->
-  <ng-container *ngIf="filteredReservas$ | async as reservas">
-    <div *ngIf="reservas.length === 0" class="alert alert-info text-center">
-      No hay reservas registradas con los filtros seleccionados.
-    </div>
-
-    <div class="row">
-      <div class="col-md-4 mb-4" *ngFor="let reserva of reservas; trackBy: trackById">
-        <div class="card h-100 shadow-sm rounded-3">
-          <div class="card-header" style="background-color: #97524e; color: white;">
-            <h5 class="card-title mb-0">{{ reserva.fecha | date:'dd/MM/yyyy' }}</h5>
-            <p class="mb-0">{{ reserva.usuario.usuario }}</p>
-          </div>
-          <div class="card-body">
-            <ul class="list-unstyled mb-0">
-              <li><strong>Hora:</strong> {{ reserva.horaInicio }} - {{ reserva.horaFin }}</li>
-              <li><strong>Espacio:</strong> {{ reserva.espacio.nombre }}</li>
-              <li><strong>Plan:</strong> {{ reserva.plan.nombre }}</li>
-              <li><strong>Precio:</strong> S/ {{ reserva.plan.precio }}</li>
-              <li><strong>Asistentes:</strong> {{ reserva.asistentes }}</li>
-              <li><strong>Estado:</strong> {{ reserva.estado }}</li>
-            </ul>
-          </div>
-        </div>
+  @if (filteredReservas$ | async; as reservas) {
+    @if (reservas.length === 0) {
+      <div class="alert alert-info text-center">
+        No hay reservas registradas con los filtros seleccionados.
       </div>
-    </div>
-  </ng-container>
+    } @else {
+      <div class="row">
+        @for (reserva of reservas; track reserva.id) {
+          <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm rounded-3">
+              <div class="card-header" style="background-color: #97524e; color: white;">
+                <h5 class="card-title mb-0">{{ reserva.fecha | date:'dd/MM/yyyy' }}</h5>
+                <p class="mb-0">{{ reserva.usuario.usuario }}</p>
+              </div>
+              <div class="card-body">
+                <ul class="list-unstyled mb-0">
+                  <li><strong>Hora:</strong> {{ reserva.horaInicio }} - {{ reserva.horaFin }}</li>
+                  <li><strong>Espacio:</strong> {{ reserva.espacio.nombre }}</li>
+                  <li><strong>Plan:</strong> {{ reserva.plan.nombre }}</li>
+                  <li><strong>Precio:</strong> S/ {{ reserva.plan.precio }}</li>
+                  <li><strong>Asistentes:</strong> {{ reserva.asistentes }}</li>
+                  <li><strong>Estado:</strong> {{ reserva.estado }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  }
 </div>
