@@ -38,6 +38,8 @@ export class ReservasForm implements OnInit {
   protected isPagoBeingCreated = false;
   protected isPagoCreado = false;
 
+  protected visbilidadButton = true;
+
   reserva: Partial<ReservaI> = {
     fecha: '',
     horaInicio: '',
@@ -113,6 +115,7 @@ export class ReservasForm implements OnInit {
 
     this.errorMsg.set(null);
     this.isReservaBeingCreated = true;
+    this.visbilidadButton = false;
 
     const userId = this.authService.getUserIdLogin();
     const selectedEspacioId = this.formReserva.value.espacio;
@@ -173,11 +176,13 @@ export class ReservasForm implements OnInit {
         this.isPagoCreado = true;
         this.pagoCreado = pago;
         console.log('Pago insertado:', pago);
+        this.router.navigate(['/user/reservas']);
       },
       error: (e) => {
         this.isPagoBeingCreated = false;
         this.errorMsg.set('Error al crear el pago.');
         console.error('Error al crear pago:', e);
+        this.visbilidadButton = true;
       }
     });
   }
