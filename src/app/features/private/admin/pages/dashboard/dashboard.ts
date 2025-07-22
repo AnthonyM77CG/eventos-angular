@@ -1,5 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { EspacioEventoService } from '../../../../../core/services/espacio-evento.service';
 import { ReservaService } from '../../../../../core/services/reserva.service';
 import { UsuarioService } from '../../../../../core/services/usuario.service';
@@ -7,7 +8,7 @@ import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.scss']
 })
