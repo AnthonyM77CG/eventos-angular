@@ -1,0 +1,24 @@
+<div class="container py-4">
+    <h2 class="mb-4 text-center fw-bold" style="color: #97524e;">Comentarios Recibidos</h2>
+
+    <ng-container *ngIf="comentarios$ | async as comentarios">
+        <div *ngIf="comentarios.length === 0" class="alert alert-info text-center">
+            No hay comentarios registrados.
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-4" *ngFor="let comentario of comentarios; trackBy: trackById">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ comentario.nombre }}</h5>
+                        <p class="mb-1"><strong>Correo:</strong> {{ comentario.correo }}</p>
+                        <p class="mb-2">{{ comentario.mensaje }}</p>
+                        <button class="btn btn-danger btn-sm" (click)="eliminarComentario(comentario.id!)">
+                            Eliminar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>

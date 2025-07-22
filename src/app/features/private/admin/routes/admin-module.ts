@@ -12,6 +12,8 @@ import { PlanesForm } from '../pages/planes/planes-form/planes-form';
 import { PlanesList } from '../pages/planes/planes-list/planes-list';
 import { PagosInicio } from '../pages/pagos/pagos-inicio/pagos-inicio';
 import { PagosLista } from '../pages/pagos/pagos-lista/pagos-lista';
+import { ComentariosInicio } from '../pages/comentarios/comentarios-inicio/comentarios-inicio';
+import { ComentariosList } from '../pages/comentarios/comentarios-lista/comentarios-lista';
 
 const adminRoutes: Routes = [
   { path: 'dashboard', component: Dashboard },
@@ -38,7 +40,14 @@ const adminRoutes: Routes = [
     children: [
       { path: '', component: ReservasList }
     ]
-  }, {
+  },{
+  path: 'comentarios',
+  component: ComentariosInicio,
+  children: [
+    { path: '', component: ComentariosList }
+  ]
+}
+, {
     path: 'pagos', component: PagosInicio,
     children: [
       { path: '', component: PagosLista }
