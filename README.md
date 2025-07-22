@@ -1,59 +1,114 @@
-# VirellarentFrontend
+# VirellaRent Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.3.
+Este es el frontend de VirellaRent, una aplicación web desarrollada con Angular para la gestión de alquiler de espacios para eventos y reservas.
 
-## Development server
+## Tabla de Contenidos
 
-To start a local development server, run:
+1.  [Requisitos Previos](#-requisitos-previos)
+2.  [Instalación](#-instalación)
+3.  [Configuración del Entorno](#-configuración-del-entorno)
+4.  [Ejecución del Proyecto](#-ejecución-del-proyecto)
+5.  [Uso de la Aplicación](#-uso-de-la-aplicación)
 
-```bash
-ng serve
-```
+---
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Requisitos Previos
 
-## Code scaffolding
+Antes de instalar y ejecutar el proyecto, asegúrate de tener lo siguiente instalado en tu sistema:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+*   **Node.js**: Versión 20.x o superior. Puedes descargarlo desde [nodejs.org](https://nodejs.org/).
+*   **npm** (Node Package Manager): Viene incluido con Node.js.
+*   **Angular CLI**: Instálalo globalmente usando npm:
+    ```bash
+    npm install -g @angular/cli
+    ```
+*   **Backend de VirellaRent**: Este frontend requiere un backend en ejecución para funcionar correctamente. Asegúrate de tener el backend de VirellaRent configurado y corriendo en `http://localhost:8080` (o la URL configurada en `environment.ts`).
 
-```bash
-ng generate component component-name
-```
+---
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Instalación
 
-```bash
-ng generate --help
-```
+Sigue estos pasos para configurar el proyecto en tu máquina local:
 
-## Building
+1.  **Clona el repositorio**:
+    ```bash
+    git clone https://github.com/AnthonyM77CG/eventos-angular.git
+    cd virellarent-frontend
+    ```
 
-To build the project run:
+2.  **Instala las dependencias**:
+    Navega al directorio del proyecto y ejecuta npm para instalar todas las dependencias:
+    ```bash
+    npm install
+    ```
 
-```bash
-ng build
-```
+---
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Configuración del Entorno
 
-## Running unit tests
+El proyecto utiliza un archivo de entorno para gestionar variables como la URL base de la API.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+1.  Abre el archivo `src/app/core/environments/environment.ts`
+2.  Verifica que `apiBaseUrl` apunte a la URL de tu backend. Por defecto, está configurado para `http://localhost:8080/api`:
 
-```bash
-ng test
-```
+    ```typescript
+    export const environment = {
+        production: false,
+        apiBaseUrl: 'http://localhost:8080/api'
+    };
+    ```
+    Si tu backend se ejecuta en un puerto o dominio diferente, actualiza esta URL.
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## Ejecución del Proyecto
 
-```bash
-ng e2e
-```
+Una vez que hayas instalado las dependencias y configurado el entorno, puedes iniciar el servidor de desarrollo de Angular:
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+1.  **Inicia el servidor de desarrollo**:
+    ```bash
+    ng serve
+    ```
+2.  **Accede a la aplicación**:
+    Abre tu navegador web y navega a `http://localhost:4200/`. La aplicación se recargará automáticamente si realizas cambios en los archivos fuente.
 
-## Additional Resources
+---
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 🚀 Uso de la Aplicación
+
+La aplicación VirellaRent ofrece diferentes funcionalidades dependiendo del rol del usuario (público, usuario registrado, administrador).
+
+### **Público (Sin Iniciar Sesión)**
+
+*   **Inicio (`/inicio`)**: Página principal con información general sobre VirellaRent.
+*   **Locales (`/locales`)**: Explora los diferentes espacios para eventos disponibles.
+*   **Nosotros (`/nosotros`)**: Conoce la historia, misión, visión y valores de la empresa.
+*   **Contacto (`/contacto`)**: Formulario para enviar consultas o comentarios.
+*   **Iniciar Sesión (`/login`)**: Accede a tu cuenta.
+*   **Registrarse (`/register`)**: Crea una nueva cuenta de usuario.
+
+### **Usuario Registrado (`/user`)**
+
+Después de iniciar sesión con una cuenta de usuario, serás redirigido al panel de usuario.
+
+*   **Mis Reservas (`/user/reservas`)**:
+    *   Visualiza todas tus reservas.
+    *   **Agregar Reserva (`/user/reservas/agregar`)**: Crea una nueva reserva seleccionando fecha, hora, asistentes, espacio de evento y plan. El proceso incluye la confirmación del pago.
+
+### **Administrador (`/admin`)**
+
+Después de iniciar sesión con una cuenta de administrador, serás redirigido al panel de administración.
+
+*   **Dashboard (`/admin/dashboard`)**: Vista general con métricas de salones, reservas y usuarios.
+*   **Locales (`/admin/locales`)**:
+    *   Visualiza todos los locales registrados.
+    *   **Agregar Local (`/admin/locales/agregar`)**: Crea un nuevo espacio para eventos.
+    *   **Editar Local (`/admin/locales/editar/:id`)**: Modifica los detalles de un local existente.
+    *   **Eliminar Local**: Elimina un local de la base de datos.
+*   **Planes (`/admin/planes`)**:
+    *   Visualiza todos los planes de reserva.
+    *   **Agregar Plan (`/admin/planes/agregar`)**: Crea un nuevo plan.
+    *   **Editar Plan (`/admin/planes/editar/:id`)**: Modifica los detalles de un plan existente.
+    *   **Eliminar Plan**: Elimina un plan de la base de datos.
+*   **Reservas (`/admin/reservas`)**: Visualiza todas las reservas realizadas, con opciones de filtrado por mes y año.
+*   **Historial Pagos (`/admin/pagos`)**: Consulta el historial completo de todos los pagos.
