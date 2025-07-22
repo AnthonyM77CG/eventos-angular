@@ -22,7 +22,7 @@ export class EspacioEventoForm implements OnInit {
   espacio: EspacioEventoI = {
     nombre: '',
     ubicacion: '',
-    aforoMaximo: 0,
+    aforoMaximo: 1,
     descripcion: ''
   };
 
@@ -30,7 +30,7 @@ export class EspacioEventoForm implements OnInit {
     nombre: new FormControl(this.espacio.nombre, [Validators.required, Validators.minLength(3)]),
     ubicacion: new FormControl(this.espacio.ubicacion, [Validators.required, Validators.minLength(3)]),
     aforoMaximo: new FormControl(this.espacio.aforoMaximo, [Validators.required, Validators.min(1)]),
-    descripcion: new FormControl(this.espacio.descripcion, [Validators.maxLength(500)])
+    descripcion: new FormControl(this.espacio.descripcion, [Validators.required, Validators.maxLength(500)])
   });
 
   get nombre() {

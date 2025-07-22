@@ -10,18 +10,41 @@
                 <div class="col-md-6">
                     <label for="fecha" class="form-label">Fecha</label>
                     <input type="date" id="fecha" class="form-control" formControlName="fecha">
+                    @if (fecha?.invalid && (fecha?.dirty || fecha?.touched)) {
+                    @if (fecha?.hasError('required')) {
+                    <span class="text-danger small">- La fecha es obligatoria*</span>
+                    }
+                    }
                 </div>
                 <div class="col-md-3">
                     <label for="horaInicio" class="form-label">Hora de Inicio</label>
                     <input type="time" id="horaInicio" class="form-control" formControlName="horaInicio">
+                    @if (horaInicio?.invalid && (horaInicio?.dirty || horaInicio?.touched)) {
+                    @if (horaInicio?.hasError('required')) {
+                    <span class="text-danger small">- La fecha es obligatoria*</span>
+                    }
+                    }
                 </div>
                 <div class="col-md-3">
                     <label for="horaFin" class="form-label">Hora de Fin</label>
                     <input type="time" id="horaFin" class="form-control" formControlName="horaFin">
+                    @if (horaFin?.invalid && (horaFin?.dirty || horaFin?.touched)) {
+                    @if (horaFin?.hasError('required')) {
+                    <span class="text-danger small">- La hora de fin es obligatoria*</span>
+                    }
+                    }
                 </div>
                 <div class="col-md-6">
                     <label for="asistentes" class="form-label">Número de Asistentes</label>
                     <input type="number" id="asistentes" class="form-control" formControlName="asistentes" min="1">
+                    @if (asistentes?.invalid && (asistentes?.dirty || asistentes?.touched)) {
+                    @if (asistentes?.hasError('required')) {
+                    <span class="text-danger small">- La hora de fin es obligatoria*</span>
+                    }
+                    @if (asistentes?.hasError('min')) {
+                    <span class="text-danger small">- El número de asistentes debe ser al menos 1*</span>
+                    }
+                    }
                 </div>
                 <div class="col-md-6">
                     <label for="espacio" class="form-label">Espacio de Evento</label>
@@ -31,6 +54,11 @@
                             <option [ngValue]="espacio.id">{{ espacio.nombre }} ({{ espacio.ubicacion }})</option>
                         </ng-container>
                     </select>
+                    @if (espacio?.invalid && (espacio?.dirty || espacio?.touched)) {
+                    @if (espacio?.hasError('required')) {
+                    <span class="text-danger small">- El espacio es obligatorio*</span>
+                    }
+                    }
                 </div>
                 <div class="col-md-6">
                     <label for="plan" class="form-label">Plan</label>
@@ -40,6 +68,11 @@
                             <option [ngValue]="plan.id">{{ plan.nombre }} - {{ plan.precio | currency }}</option>
                         </ng-container>
                     </select>
+                    @if (plan?.invalid && (plan?.dirty || plan?.touched)) {
+                    @if (plan?.hasError('required')) {
+                    <span class="text-danger small">- El plan es obligatorio*</span>
+                    }
+                    }
                 </div>
             </div>
             <hr>
@@ -52,6 +85,11 @@
                             <option value="EFECTIVO">EFECTIVO</option>
                             <option value="TRANSFERENCIA">TRANSFERENCIA</option>
                         </select>
+                        @if (metodoPago?.invalid && (metodoPago?.dirty || metodoPago?.touched)) {
+                        @if (formReserva.get('metodoPago')?.hasError('required')) {
+                        <span class="text-danger small">- El método de pago es obligatorio*</span>
+                        }
+                        }
                     </div>
                 </div>
             </ng-container>

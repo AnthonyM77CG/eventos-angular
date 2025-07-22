@@ -23,7 +23,7 @@ export class PlanesForm implements OnInit {
 
   formPlan = new FormGroup({
     nombre: new FormControl(this.plan.nombre, [Validators.required, Validators.minLength(3)]),
-    descripcion: new FormControl(this.plan.descripcion, [Validators.maxLength(500)]),
+    descripcion: new FormControl(this.plan.descripcion, [Validators.required, Validators.maxLength(500)]),
     precio: new FormControl(this.plan.precio, [Validators.required, Validators.min(0)])
   })
 

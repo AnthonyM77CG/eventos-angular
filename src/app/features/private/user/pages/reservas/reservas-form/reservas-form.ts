@@ -62,6 +62,28 @@ export class ReservasForm implements OnInit {
     metodoPago: new FormControl<'TARJETA' | 'EFECTIVO' | 'TRANSFERENCIA'>('TARJETA', [Validators.required])
   });
 
+  get fecha() {
+    return this.formReserva.get('fecha');
+  }
+  get horaInicio() {
+    return this.formReserva.get('horaInicio');
+  }
+  get horaFin() {
+    return this.formReserva.get('horaFin');
+  }
+  get asistentes() {
+    return this.formReserva.get('asistentes');
+  }
+  get espacio() {
+    return this.formReserva.get('espacio');
+  }
+  get plan() {
+    return this.formReserva.get('plan');
+  }
+  get metodoPago() {
+    return this.formReserva.get('metodoPago');
+  }
+
   ngOnInit(): void {
     this.espacios$ = this.espacioService.getEspaciosEvento();
     this.planes$ = this.planService.getPlanes();

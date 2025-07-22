@@ -47,6 +47,9 @@
                     <label for="descripcion" class="form-label">Descripción</label>
                     <textarea id="descripcion" class="form-control" formControlName="descripcion" rows="4" placeholder="Descripción detallada del local"></textarea>
                     @if (descripcion?.invalid && (descripcion?.dirty || descripcion?.touched)) {
+                    @if (descripcion?.hasError('required')) {
+                    <span class="text-danger small">- Le descripcion es obligatoria*</span>
+                    }
                     @if (descripcion?.hasError('maxlength')) {
                     <span class="text-danger small">- La descripción no puede exceder los 500 caracteres*</span>
                     }
